@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "115181226936",
+    "project_id": "flashcard-app-23006",
+    "storage_bucket": "flashcard-app-23006.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115181226936:android:3eae589e38ee8c9e7b9d4d",
+        "android_client_info": {
+          "package_name": "com.example.healthon_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115181226936-ete27s1b0v6bi3jo1tucif3uuq95trn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXXjf-cjQYsxbY3Z-r_gKMCxoxM0IK2R8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115181226936-ete27s1b0v6bi3jo1tucif3uuq95trn9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "115181226936-aomq26of68rga5kb0l63laoi5p1nlb65.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.healthProject"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115181226936:android:a3091d930cb1f56e7b9d4d",
+        "android_client_info": {
+          "package_name": "com.nitw.flashcards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115181226936-90f2kkq0qmm47ou3lrrvorfo6nikb04b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nitw.flashcards",
+            "certificate_hash": "8bb11c661f823e5183fc8678be0b9fd3b7ffac2b"
+          }
+        },
+        {
+          "client_id": "115181226936-ete27s1b0v6bi3jo1tucif3uuq95trn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXXjf-cjQYsxbY3Z-r_gKMCxoxM0IK2R8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115181226936-ete27s1b0v6bi3jo1tucif3uuq95trn9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "115181226936-aomq26of68rga5kb0l63laoi5p1nlb65.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.healthProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
