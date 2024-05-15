@@ -81,10 +81,24 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
               onTap: () {
                 _speakDescription();
               },
-              child: Image.asset(
-                height: 200,
-                'assets/img/${widget.imgPath}',
-                fit: BoxFit.fill,
+              child: Stack(
+                children: [
+                  Image.asset(
+                    height: 300,
+                    'assets/img/${widget.imgPath}',
+                    fit: BoxFit.contain,
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Image.asset(
+                      'assets/hand.png',
+                      height: 20,
+                      color: Colors
+                          .transparent, // Set the color to transparent to make the background invisible
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
