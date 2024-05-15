@@ -25,7 +25,7 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
   Color _textColor = Colors.black;
 
   FlutterTts flutterTts = FlutterTts();
-  double _speed = 1.0;
+  double _speed = 0.7;
   double _pitch = 1.0;
 
   late String _description;
