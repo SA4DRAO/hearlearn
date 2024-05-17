@@ -9,11 +9,13 @@ class FlashCardsDetailsScreen extends StatefulWidget {
   final String imgPath;
   final String description;
   final String locale;
-  const FlashCardsDetailsScreen(
-      {super.key,
-      required this.imgPath,
-      required this.description,
-      required this.locale});
+
+  const FlashCardsDetailsScreen({
+    Key? key,
+    required this.imgPath,
+    required this.description,
+    required this.locale,
+  }) : super(key: key);
 
   @override
   _FlashCardsDetailsScreenState createState() =>
@@ -22,19 +24,24 @@ class FlashCardsDetailsScreen extends StatefulWidget {
 
 class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
   final stt.SpeechToText _speech = stt.SpeechToText();
-  bool _isListening = false;
+  late bool _isListening;
+  late Color _microphoneColor;
   String _text = '';
   Color _textColor = Colors.black;
 
   FlutterTts flutterTts = FlutterTts();
-  double _speed = 0.7;
+  final double _speed = 0.7;
   double _pitch = 1.0;
 
   late String _description;
   late bool _isMounted;
+  bool _isDialogShown = false;
+
   @override
   void initState() {
     super.initState();
+    _isListening = false;
+    _microphoneColor = Colors.blue;
     flutterTts.setLanguage(widget.locale);
     _description = widget.description;
     checkMicrophonePermission();
@@ -49,22 +56,21 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
   }
 
   Future<void> _speakDescription() async {
-    await flutterTts.setSpeechRate(_speed);
-    await flutterTts.setPitch(_pitch);
-    await flutterTts.speak(_description);
+    try {
+      await flutterTts.setSpeechRate(_speed);
+      await flutterTts.setPitch(_pitch);
+      await flutterTts.speak(_description);
+    } catch (e) {
+      print('Error speaking: $e');
+    }
   }
 
-  void _setSpeed(double value) {
+  void _setProperties({required double speed, required double pitch}) {
     setState(() {
-      context.read<SliderProvider>().changeSpeed(newSliderSpeed: value);
-      flutterTts.setSpeechRate(value);
-    });
-  }
-
-  void _setPitch(double value) {
-    setState(() {
-      _pitch = value;
-      flutterTts.setPitch(_pitch);
+      context.read<SliderProvider>().changeSpeed(newSliderSpeed: speed);
+      _pitch = pitch;
+      flutterTts.setSpeechRate(speed);
+      flutterTts.setPitch(pitch);
     });
   }
 
@@ -80,14 +86,12 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-              onTap: () {
-                _speakDescription();
-              },
+              onTap: _speakDescription,
               child: Stack(
                 children: [
                   Image.asset(
-                    height: 300,
                     'assets/img/${widget.imgPath}',
+                    height: 300,
                     fit: BoxFit.contain,
                   ),
                   Positioned(
@@ -96,8 +100,7 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
                     child: Image.asset(
                       'assets/hand.png',
                       height: 20,
-                      color: Colors
-                          .transparent, // Set the color to transparent to make the background invisible
+                      color: Colors.transparent,
                     ),
                   ),
                 ],
@@ -118,7 +121,7 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
               value: context.read<SliderProvider>().sliderSpeed,
               min: 0.05,
               max: 2.0,
-              onChanged: _setSpeed,
+              onChanged: (value) => _setProperties(speed: value, pitch: _pitch),
             ),
             Text(
               'Pitch: ${_pitch.toStringAsFixed(1)}',
@@ -128,17 +131,17 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
               value: _pitch,
               min: 0.05,
               max: 2.0,
-              onChanged: _setPitch,
+              onChanged: (value) => _setProperties(speed: _speed, pitch: value),
             ),
             InkWell(
-              onTap: _listen,
+              onTap: _toggleListening,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 width: 75,
                 height: 75,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _isListening ? Colors.red : Colors.blue,
+                  color: _microphoneColor,
                 ),
                 child: const Icon(
                   Icons.mic,
@@ -161,41 +164,84 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
     );
   }
 
-  Future<void> _listen() async {
+  void _showSmileyFaceDialog(BuildContext context) {
+    if (!_isDialogShown) {
+      _isDialogShown = true;
+      showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Prevents dialog from being dismissed by tapping outside
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Correct Word Detected'),
+            content: Icon(
+              Icons.sentiment_satisfied,
+              size: 50,
+              color: Colors.green,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    _isDialogShown =
+                        false; // Reset _isDialogShown when dialog is closed
+                  });
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _toggleListening() async {
+    setState(() {
+      _textColor = Colors.red;
+    });
     if (!_isListening) {
       bool available = await _speech.initialize(
         onStatus: (status) {
-          print('status: $status');
           if (status == stt.SpeechToText.listeningStatus && _isMounted) {
             setState(() {
-              _isListening = false;
+              _isListening = true;
+              _microphoneColor = Colors.red;
             });
           }
         },
         onError: (error) => print('error: $error'),
       );
       if (available) {
-        setState(() {
-          _isListening = true;
-        });
         _speech.listen(
           localeId: widget.locale,
           onResult: (result) {
             if (_isMounted) {
               setState(() {
                 _text = result.recognizedWords;
-                _textColor =
-                    _text.toLowerCase() == widget.description.toLowerCase()
-                        ? Colors.green
-                        : Colors.red;
+                List<String> words = _text.toLowerCase().split(' ');
+                if (words.contains(widget.description.toLowerCase())) {
+                  _speech.stop(); // Stop speech recognition
+                  _textColor = Colors.green;
+                  if (!_isDialogShown) {
+                    // Check if dialog is not already shown
+                    _isDialogShown = true;
+                    _showSmileyFaceDialog(context); // Show smiley face dialog
+                  }
+                }
               });
+
+              // Check if any recognized word matches the target word
+              List<String> words = _text.toLowerCase().split(' ');
+              if (words.contains(widget.description.toLowerCase())) {
+                _speech.stop(); // Stop speech recognition
+                _microphoneColor = Colors.blue;
+              }
             }
           },
         );
       } else {
-        setState(() {
-          _isListening = false;
-        });
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Speech recognition not available'),
@@ -209,16 +255,15 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
       });
     }
   }
-}
 
-Future<void> checkMicrophonePermission() async {
-  PermissionStatus status = await Permission.microphone.status;
+  void checkMicrophonePermission() async {
+    PermissionStatus status = await Permission.microphone.status;
 
-  if (!status.isGranted) {
-    await Permission.microphone.request();
-
-    if (!await Permission.microphone.status.isGranted) {
-      print('No Mic Permission :(');
+    if (!status.isGranted) {
+      await Permission.microphone.request();
+      if (!await Permission.microphone.request().isGranted) {
+        print('No Mic Permission :(');
+      }
     }
   }
 }

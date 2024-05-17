@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hearlearn/pages/flashcard_view.dart';
+import 'package:hearlearn/providers/listening_provider.dart';
 import 'package:hearlearn/providers/slider_provider.dart';
-import 'package:provider/provider.dart'; // for rootBundle
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [ChangeNotifierProvider(create: (context) => SliderProvider())], child: MaterialApp(home: IntroScreen()));
+    return MultiProvider(providers: [ChangeNotifierProvider(create: (context) => SliderProvider()), ChangeNotifierProvider(create: (_) => ListeningProvider()),
+], child: MaterialApp(home: IntroScreen()));
   }
 }
 
@@ -129,6 +131,7 @@ class _ImageListScreenState extends State<ImageListScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => FlashCardsDetailsScreen(
+                      key: UniqueKey(),
                       imgPath: item['image']!.trim(),
                       description: item['text']!,
                       locale: widget.locale, // Your specified locale
