@@ -5,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class FlashCardScreen extends StatelessWidget {
-  const FlashCardScreen({
+  FlashCardScreen({
     super.key,
     required this.imgPath,
     required this.description,
@@ -18,6 +18,8 @@ class FlashCardScreen extends StatelessWidget {
     PermissionStatus status = await Permission.microphone.status;
     return status.isGranted;
   }
+
+  bool wasTextColorGreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,39 @@ class FlashCardScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
+            final textColor = context.watch<ListeningProvider>().textColor;
+            final isGreen = textColor == Colors.green;
+
+            if (isGreen && !wasTextColorGreen) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Center(child: Text('Good Job!')),
+                          content: const Center(
+                            child: Text(
+                              '😊', // Smiley face emoji
+                              style: TextStyle(
+                                  fontSize: 50), // Adjust font size as needed
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                wasTextColorGreen = true;
+                              },
+                              child: const Center(child: Text('Close')),
+                            ),
+                          ],
+                        ));
+              });
+            }
+
+            if (!isGreen) {
+              wasTextColorGreen = false;
+            }
+
             return Scaffold(
               appBar: AppBar(
                 title: const Text('Card'),
@@ -65,7 +100,7 @@ class FlashCardScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(
                         description,
-                        style: const TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, color: textColor),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
@@ -136,8 +171,7 @@ class FlashCardScreen extends StatelessWidget {
                             ),
                             style: TextStyle(
                               fontSize: 20,
-                              color:
-                                  context.watch<ListeningProvider>().textColor,
+                              color: textColor,
                             ),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(

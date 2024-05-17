@@ -42,6 +42,8 @@ class ListeningProvider extends ChangeNotifier {
             }
             notifyListeners();
           });
+    } else {
+      stopListening();
     }
   }
 
