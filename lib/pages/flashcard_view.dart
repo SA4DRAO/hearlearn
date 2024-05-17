@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:hearlearn/providers/slider_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class FlashCardsDetailsScreen extends StatefulWidget {
@@ -54,8 +56,8 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
 
   void _setSpeed(double value) {
     setState(() {
-      _speed = value;
-      flutterTts.setSpeechRate(_speed);
+      context.read<SliderProvider>().changeSpeed(newSliderSpeed: value);
+      flutterTts.setSpeechRate(value);
     });
   }
 
@@ -109,11 +111,11 @@ class _FlashCardsDetailsScreenState extends State<FlashCardsDetailsScreen> {
               ),
             ),
             Text(
-              'Speed: ${_speed.toStringAsFixed(1)}',
+              'Speed: ${context.watch<SliderProvider>().sliderSpeed.toStringAsFixed(1)}',
               style: const TextStyle(fontSize: 18),
             ),
             Slider(
-              value: _speed,
+              value: context.read<SliderProvider>().sliderSpeed,
               min: 0.05,
               max: 2.0,
               onChanged: _setSpeed,

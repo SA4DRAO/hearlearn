@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hearlearn/pages/flashcard_view.dart'; // for rootBundle
+import 'package:hearlearn/pages/flashcard_view.dart';
+import 'package:hearlearn/providers/slider_provider.dart';
+import 'package:provider/provider.dart'; // for rootBundle
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: IntroScreen());
+    return MultiProvider(providers: [ChangeNotifierProvider(create: (context) => SliderProvider())], child: MaterialApp(home: IntroScreen()));
   }
 }
 
