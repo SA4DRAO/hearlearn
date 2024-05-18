@@ -20,54 +20,66 @@ class ImageListScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            itemCount: context.watch<CardsListProvider>().itemList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // Set the number of columns
-              crossAxisSpacing: 10, // Spacing between columns
-              mainAxisSpacing: 10, // Spacing between rows
-              childAspectRatio: 0.8, // Aspect ratio for the items
-            ),
-            itemBuilder: (context, index) {
-              final item = context.watch<CardsListProvider>().itemList[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FlashCardScreen(
-                        key: UniqueKey(),
-                        imgPath: item['image']!.trim(),
-                        description: item['text']!,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              bool isTablet = constraints.maxWidth > 600;
+              int crossAxisCount = isTablet ? 3 : 2;
+              double childAspectRatio = isTablet ? 0.9 : 0.8;
+              double spacing = isTablet ? 20 : 10;
+              double fontSize = isTablet ? 18 : 16;
+
+              return GridView.builder(
+                itemCount: context.watch<CardsListProvider>().itemList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount, // Number of columns
+                  crossAxisSpacing: spacing, // Spacing between columns
+                  mainAxisSpacing: spacing, // Spacing between rows
+                  childAspectRatio:
+                      childAspectRatio, // Aspect ratio for the items
+                ),
+                itemBuilder: (context, index) {
+                  final item =
+                      context.watch<CardsListProvider>().itemList[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FlashCardScreen(
+                            key: UniqueKey(),
+                            imgPath: item['image']!.trim(),
+                            description: item['text']!,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 4, // Optional: adds shadow to the card
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Image.asset(
+                              'assets/img/${item['image']!.trim()}',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              item['text'] ?? '',
+                              style: TextStyle(fontSize: fontSize),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
                 },
-                child: Card(
-                  elevation: 4, // Optional: adds shadow to the card
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Image.asset(
-                          'assets/img/${item['image']!.trim()}',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          item['text'] ?? '',
-                          style: const TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               );
             },
           ),
