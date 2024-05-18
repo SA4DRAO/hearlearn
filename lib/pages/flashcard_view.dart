@@ -21,47 +21,63 @@ class FlashCardScreen extends StatelessWidget {
 
   bool wasTextColorGreen = false;
 
+  void _showGoodJobDialog(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Good Job 😊'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvoked: (bool value) {
         context.read<ListeningProvider>().reset();
       },
-      child: FutureBuilder(
+      child: FutureBuilder<bool>(
         future: checkMicrophonePermission(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
+        builder: (context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Card'),
+                centerTitle: true,
+              ),
+              body: const Center(
+                child: CircularProgressIndicator(),
+              ),
             );
-          } else {
+          } else if (snapshot.hasError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Card'),
+                centerTitle: true,
+              ),
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            );
+          } else if (snapshot.hasData && snapshot.data!) {
             final textColor = context.watch<ListeningProvider>().textColor;
             final isGreen = textColor == Colors.green;
 
             if (isGreen && !wasTextColorGreen) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: const Center(child: Text('Good Job!')),
-                          content: const Center(
-                            child: Text(
-                              '😊', // Smiley face emoji
-                              style: TextStyle(
-                                  fontSize: 50), // Adjust font size as needed
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                wasTextColorGreen = true;
-                              },
-                              child: const Center(child: Text('Close')),
-                            ),
-                          ],
-                        ));
-              });
+              wasTextColorGreen = true;
+              _showGoodJobDialog(context);
             }
 
             if (!isGreen) {
@@ -196,6 +212,16 @@ class FlashCardScreen extends StatelessWidget {
                     },
                   ),
                 ),
+              ),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Card'),
+                centerTitle: true,
+              ),
+              body: const Center(
+                child: Text('Permission not granted'),
               ),
             );
           }
