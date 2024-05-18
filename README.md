@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Flash Card App is a user-friendly tool designed to enhance language learning experiences. It provides an interactive platform for users to learn vocabulary and improve pronunciation through engaging flashcards.
+HearLearn is a user-friendly tool designed to enhance language learning experiences. It provides an interactive platform for users to learn vocabulary and improve pronunciation through engaging flashcards.
 
 ## Key Features
 
@@ -19,7 +19,7 @@ The Flash Card App is a user-friendly tool designed to enhance language learning
 
 ## Installation
 
-You can easily install the Flash Card App on your Android device by following these steps:
+You can easily install HearLearn on your Android device by following these steps:
 
 1. Visit the [GitHub Releases](https://github.com/SA4DRAO/hearlearn/releases) page.
 2. Download the latest APK file from the releases section.
@@ -28,7 +28,7 @@ You can easily install the Flash Card App on your Android device by following th
 
 ## Feedback and Support
 
-We're constantly working to improve the Flash Card App. If you have any feedback, suggestions, or issues, please don't hesitate to reach out to us:
+We're constantly working to improve HearLearn. If you have any feedback, suggestions, or issues, please don't hesitate to reach out to us:
 
 - **Email**: [adrao18020@gmail.com]
 - **GitHub Repository**: [Flash Card App Repository](https://github.com/SA4DRAO/hearlearn)
