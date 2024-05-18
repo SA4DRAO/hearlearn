@@ -2,69 +2,88 @@ import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class ListeningProvider extends ChangeNotifier {
-  stt.SpeechToText speechToText;
-  bool isListening;
-  Color microphoneColor;
-  String text;
-  String locale;
-  Color textColor;
+  final stt.SpeechToText _speechToText;
+  bool _isListening;
+  Color _microphoneColor;
+  String _text;
+  String _locale;
+  Color _textColor;
+
   ListeningProvider({
     stt.SpeechToText? speechToText,
-    this.isListening = false,
-    this.microphoneColor = Colors.blue,
-    this.text = '',
-    this.locale = 'en_US',
-    this.textColor = Colors.red,
-  }) : speechToText = speechToText ?? stt.SpeechToText();
+    bool isListening = false,
+    Color microphoneColor = Colors.blue,
+    String text = '',
+    String locale = 'en_US',
+    Color textColor = Colors.red,
+  })  : _speechToText = speechToText ?? stt.SpeechToText(),
+        _isListening = isListening,
+        _microphoneColor = microphoneColor,
+        _text = text,
+        _locale = locale,
+        _textColor = textColor;
+
+  bool get isListening => _isListening;
+  Color get microphoneColor => _microphoneColor;
+  String get text => _text;
+  String get locale => _locale;
+  Color get textColor => _textColor;
 
   void startListening({required String description}) async {
-    if (isListening) {
+    if (_isListening) {
       stopListening();
       return;
     }
-    bool available = await speechToText.initialize(onStatus: (status) {
-      if (status == stt.SpeechToText.listeningStatus) {
-        isListening = true;
-        microphoneColor = Colors.red;
-        textColor = Colors.red;
-        notifyListeners();
-      }
-    });
+    bool available = await _speechToText.initialize(
+      onStatus: (status) {
+        if (status == stt.SpeechToText.listeningStatus) {
+          _isListening = true;
+          _microphoneColor = Colors.red;
+          _textColor = Colors.red;
+          notifyListeners();
+        }
+      },
+      onError: (error) {
+        stopListening();
+      },
+    );
     if (available) {
-      speechToText.listen(
-          localeId: locale,
-          onResult: (result) {
-            text = result.recognizedWords;
-            List<String> words = text.toLowerCase().split(' ');
-            if (words.contains(description.toLowerCase())) {
-              textColor = Colors.green;
-              stopListening();
-            }
-            notifyListeners();
-          });
+      _speechToText.listen(
+        localeId: _locale,
+        onResult: (result) {
+          _text = result.recognizedWords;
+          List<String> words = _text.toLowerCase().split(' ');
+          if (words.contains(description.toLowerCase())) {
+            _textColor = Colors.green;
+            stopListening();
+          }
+          _microphoneColor = Colors.blue;
+          notifyListeners();
+        },
+      );
     } else {
       stopListening();
     }
   }
 
   void stopListening() {
-    speechToText.stop();
-    isListening = false;
-    microphoneColor = Colors.blue;
+    _speechToText.stop();
+    _isListening = false;
+    _microphoneColor = Colors.blue;
     notifyListeners();
   }
 
-  void setLocale({required String newLocale}) async {
-    locale = newLocale;
+  void setLocale({required String newLocale}) {
+    _locale = newLocale;
     notifyListeners();
   }
 
   void reset() {
     stopListening();
-    isListening = false;
-    microphoneColor = Colors.blue;
-    textColor = Colors.red;
-    text = '';
+    _isListening = false;
+    _microphoneColor = Colors.blue;
+    _textColor = Colors.red;
+    _text = '';
     notifyListeners();
   }
 }
