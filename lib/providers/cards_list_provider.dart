@@ -1,30 +1,48 @@
+import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class CardsListProvider extends ChangeNotifier {
-  List<Map<String, String>> itemList;
+  late Map<String, List<Map<String, String>>> itemList;
 
-  CardsListProvider({List<Map<String, String>>? itemList})
-      : itemList = itemList ?? [];
+  CardsListProvider({Map<String, List<Map<String, String>>>? itemList})
+      : itemList = itemList ?? {};
 
-  void loadData({required String dbFilePath}) async {
-    final String content = await rootBundle.loadString('assets/$dbFilePath');
-    final List<String> lines = content.split('\n');
-    for (String line in lines) {
-      if (line.isNotEmpty) {
-        final List<String> parts = line.split('" "');
-        if (parts.length == 2) {
-          final String key = parts[0].replaceAll('"', '');
-          final String value = parts[1].replaceAll('"', '');
-          itemList.add({'text': key, 'image': value});
+  Future<void> loadData({required String jsonFilename}) async {
+    try {
+      final String jsonString =
+          await rootBundle.loadString('assets/$jsonFilename');
+      final Map<String, dynamic> data = json.decode(jsonString);
+
+      // Clear the existing itemList
+      itemList.clear();
+
+      // Iterate over each category
+      data['categories']?.forEach((category, items) {
+        if (items is List) {
+          itemList[category] = [];
+          for (final item in items) {
+            if (item is Map<String, dynamic> &&
+                item.containsKey('name') &&
+                item.containsKey('filename')) {
+              itemList[category]!.add({
+                'text': item['name'] ?? '',
+                'image': item['filename'] ?? '',
+              });
+            }
+          }
         }
-      }
+      });
+
+      notifyListeners();
+    } catch (e) {
+      // Handle errors, such as file not found or JSON parsing errors
+      print('Error loading data: $e');
     }
-    notifyListeners();
   }
 
   void reset() {
-    itemList = [];
+    itemList.clear();
     notifyListeners();
   }
 }

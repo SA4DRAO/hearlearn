@@ -4,8 +4,8 @@ import 'package:hearlearn/providers/speech_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-class FlashCardScreen extends StatelessWidget {
-  FlashCardScreen({
+class FlashCardScreen extends StatefulWidget {
+  const FlashCardScreen({
     super.key,
     required this.imgPath,
     required this.description,
@@ -14,12 +14,24 @@ class FlashCardScreen extends StatelessWidget {
   final String imgPath;
   final String description;
 
-  Future<bool> checkMicrophonePermission() async {
-    PermissionStatus status = await Permission.microphone.status;
-    return status.isGranted;
+  @override
+  _FlashCardScreenState createState() => _FlashCardScreenState();
+}
+
+class _FlashCardScreenState extends State<FlashCardScreen> {
+  bool wasTextColorGreen = false;
+  late Future<bool> _microphonePermissionFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _microphonePermissionFuture = _checkAndRequestMicrophonePermission();
   }
 
-  bool wasTextColorGreen = false;
+  Future<bool> _checkAndRequestMicrophonePermission() async {
+    PermissionStatus status = await Permission.microphone.request();
+    return status.isGranted;
+  }
 
   void _showGoodJobDialog(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,16 +57,16 @@ class FlashCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (bool value) {
+      onPopInvoked: (bool value) async {
         context.read<ListeningProvider>().reset();
       },
       child: FutureBuilder<bool>(
-        future: checkMicrophonePermission(),
+        future: _microphonePermissionFuture,
         builder: (context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Card'),
+                title: Text(widget.description),
                 centerTitle: true,
               ),
               body: const Center(
@@ -64,7 +76,7 @@ class FlashCardScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Card'),
+                title: Text(widget.description),
                 centerTitle: true,
               ),
               body: Center(
@@ -86,7 +98,7 @@ class FlashCardScreen extends StatelessWidget {
 
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Card'),
+                title: Text(widget.description),
                 centerTitle: true,
               ),
               body: Center(
@@ -100,7 +112,7 @@ class FlashCardScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Image.asset(
-                              'assets/img/$imgPath',
+                              'assets/img/${widget.imgPath}',
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -108,7 +120,7 @@ class FlashCardScreen extends StatelessWidget {
                           ElevatedButton.icon(
                             onPressed: () {
                               context.read<SpeechProvider>().speak(
-                                    text: description,
+                                    text: widget.description,
                                     locale: context
                                         .read<ListeningProvider>()
                                         .locale,
@@ -119,7 +131,7 @@ class FlashCardScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            description,
+                            widget.description,
                             style: TextStyle(
                                 fontSize: isTablet ? 24 : 20, color: textColor),
                             textAlign: TextAlign.center,
@@ -173,7 +185,8 @@ class FlashCardScreen extends StatelessWidget {
                             child: InkWell(
                               onTap: () => context
                                   .read<ListeningProvider>()
-                                  .startListening(description: description),
+                                  .startListening(
+                                      description: widget.description),
                               child: const Icon(
                                 Icons.mic,
                                 size: 50,

@@ -1,0 +1,85 @@
+{
+  "categories": {
+    "fruits": [
+      { "name": "apple", "filename": "apple.jpg" },
+      { "name": "orange", "filename": "orange.jpg" },
+      { "name": "banana", "filename": "banana.jpg" },
+      { "name": "mango", "filename": "mango.jpg" },
+      { "name": "grapes", "filename": "grapes.jpg" },
+      { "name": "cherry", "filename": "cherry.jpg" },
+      { "name": "papaya", "filename": "papaya.jpg" }
+    ],
+    "vegetables": [
+      { "name": "potato", "filename": "potato.jpg" },
+      { "name": "tomato", "filename": "tomato.jpg" },
+      { "name": "ladies finger", "filename": "ladies_finger.jpg" },
+      { "name": "brinjal", "filename": "brinjal.jpg" },
+      { "name": "beans", "filename": "beans.jpg" },
+      { "name": "cabbage", "filename": "cabbage.jpg" },
+      { "name": "cauliflower", "filename": "cauliflower.jpg" }
+    ],
+    "vehicles": [
+      { "name": "car", "filename": "car.jpg" },
+      { "name": "bike", "filename": "bike.jpg" },
+      { "name": "bus", "filename": "bus.jpg" },
+      { "name": "cycle", "filename": "cycle.jpg" },
+      { "name": "ship", "filename": "ship.jpg" },
+      { "name": "plane", "filename": "plane.jpg" },
+      { "name": "auto", "filename": "auto.jpg" },
+      { "name": "train", "filename": "train.jpg" }
+    ],
+    "flowers": [
+      { "name": "rose", "filename": "rose.jpg" },
+      { "name": "lily", "filename": "lily.jpg" },
+      { "name": "jasmine", "filename": "jasmine.jpg" },
+      { "name": "marigold", "filename": "marigold.jpg" },
+      { "name": "lotus", "filename": "lotus.jpg" },
+      { "name": "sunflower", "filename": "sunflower.jpg" },
+      { "name": "hibiscus", "filename": "hibiscus.jpg" }
+    ],
+    "colors": [
+      { "name": "red", "filename": "red.jpg" },
+      { "name": "green", "filename": "green.jpg" },
+      { "name": "blue", "filename": "blue.jpg" },
+      { "name": "yellow", "filename": "yellow.jpg" },
+      { "name": "pink", "filename": "pink.jpg" },
+      { "name": "white", "filename": "white.jpg" },
+      { "name": "black", "filename": "black.jpg" },
+      { "name": "orange", "filename": "orange.jpg" }
+    ],
+    "domestic animals": [
+      { "name": "cat", "filename": "cat.jpg" },
+      { "name": "dog", "filename": "dog.jpg" },
+      { "name": "cow", "filename": "cow.jpg" },
+      { "name": "sheep", "filename": "sheep.jpg" },
+      { "name": "donkey", "filename": "donkey.jpg" },
+      { "name": "goat", "filename": "goat.jpg" },
+      { "name": "hen", "filename": "hen.jpg" },
+      { "name": "duck", "filename": "duck.jpg" },
+      { "name": "mouse", "filename": "mouse.jpg" },
+      { "name": "parrot", "filename": "parrot.jpg" },
+      { "name": "pigeon", "filename": "pigeon.jpg" },
+      { "name": "snake", "filename": "snake.jpg" },
+      { "name": "frog", "filename": "frog.jpg" },
+      { "name": "lizard", "filename": "lizard.jpg" }
+    ],
+    "wild animals": [
+      { "name": "tiger", "filename": "tiger.jpg" },
+      { "name": "lion", "filename": "lion.jpg" },
+      { "name": "monkey", "filename": "monkey.jpg" },
+      { "name": "elephant", "filename": "elephant.jpg" },
+      { "name": "fox", "filename": "fox.jpg" },
+      { "name": "deer", "filename": "deer.jpg" },
+      { "name": "zebra", "filename": "zebra.jpg" },
+      { "name": "bear", "filename": "bear.jpg" },
+      { "name": "eagle", "filename": "eagle.jpg" },
+      { "name": "fish", "filename": "fish.jpg" }
+    ],
+    "insects": [
+      { "name": "mosquito", "filename": "mosquito.jpg" },
+      { "name": "fly", "filename": "fly.jpg" },
+      { "name": "butterfly", "filename": "butterfly.jpg" },
+      { "name": "spider", "filename": "spider.jpg" }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "categories": {
+    "పండ్లు": [
+      { "name": "ఆపిల్", "filename": "apple.jpg" },
+      { "name": "ఆరెంజ్", "filename": "orange.jpg" },
+      { "name": "అరటిపండు", "filename": "banana.jpg" },
+      { "name": "మామిడి", "filename": "mango.jpg" },
+      { "name": "ద్రాక్ష", "filename": "grapes.jpg" },
+      { "name": "చెర్రీ", "filename": "cherry.jpg" },
+      { "name": "బొప్పాయి", "filename": "papaya.jpg" }
+    ],
+    "కూరగాయలు": [
+      { "name": "బంగాళదుంప", "filename": "potato.jpg" },
+      { "name": "టమోటో", "filename": "tomato.jpg" },
+      { "name": "బెండకాయ", "filename": "ladies_finger.jpg" },
+      { "name": "వంకాయ", "filename": "brinjal.jpg" },
+      { "name": "బీన్స్", "filename": "beans.jpg" },
+      { "name": "క్యాబేజీ", "filename": "cabbage.jpg" },
+      { "name": "కాలీఫ్లవరు", "filename": "cauliflower.jpg" }
+    ],
+    "వాహనాలు": [
+      { "name": "కారు", "filename": "car.jpg" },
+      { "name": "బైక్", "filename": "bike.jpg" },
+      { "name": "బస్సు", "filename": "bus.jpg" },
+      { "name": "చక్రం", "filename": "cycle.jpg" },
+      { "name": "షిప్", "filename": "ship.jpg" },
+      { "name": "విమానం", "filename": "plane.jpg" },
+      { "name": "రైలు", "filename": "train.jpg" }
+    ],
+    "పువ్వులు": [
+      { "name": "గులాబీ", "filename": "rose.jpg" },
+      { "name": "లిల్లీ", "filename": "lily.jpg" },
+      { "name": "మల్లెపూవు", "filename": "jasmine.jpg" },
+      { "name": "మేరిగోల్డ్", "filename": "marigold.jpg" },
+      { "name": "కమలం", "filename": "lotus.jpg" },
+      { "name": "పొద్దుతిరుగుడు పువ్వు", "filename": "sunflower.jpg" },
+      { "name": "మందార", "filename": "hibiscus.jpg" }
+    ],
+    "రంగులు": [
+      { "name": "ఎరుపు", "filename": "red.jpg" },
+      { "name": "ఆకుపచ్చ", "filename": "green.jpg" },
+      { "name": "నీలం", "filename": "blue.jpg" },
+      { "name": "పసుపు", "filename": "yellow.jpg" },
+      { "name": "పింక్", "filename": "pink.jpg" },
+      { "name": "తెలుపు", "filename": "white.jpg" },
+      { "name": "నలుపు", "filename": "black.jpg" },
+      { "name": "ఆరెంజ్", "filename": "orange.jpg" }
+    ],
+    "పెంపుడు జంతువులు": [
+      { "name": "పిల్లి", "filename": "cat.jpg" },
+      { "name": "కుక్క", "filename": "dog.jpg" },
+      { "name": "ఆవు", "filename": "cow.jpg" },
+      { "name": "గొర్రె", "filename": "sheep.jpg" },
+      { "name": "గాడిద", "filename": "donkey.jpg" },
+      { "name": "మేక", "filename": "goat.jpg" },
+      { "name": "కోడి", "filename": "hen.jpg" },
+      { "name": "డక్", "filename": "duck.jpg" },
+      { "name": "మౌస్", "filename": "mouse.jpg" },
+      { "name": "చిలుక", "filename": "parrot.jpg" },
+      { "name": "పావురం", "filename": "pigeon.jpg" },
+      { "name": "పాము", "filename": "snake.jpg" },
+      { "name": "కప్ప", "filename": "frog.jpg" },
+      { "name": "బల్లి", "filename": "lizard.jpg" }
+    ],
+    "క్రూర మృగాలు": [
+      { "name": "tiger", "filename": "tiger.jpg" },
+      { "name": "సింహం", "filename": "lion.jpg" },
+      { "name": "కోతి", "filename": "monkey.jpg" },
+      { "name": "ఏనుగు", "filename": "elephant.jpg" },
+      { "name": "నక్క", "filename": "fox.jpg" },
+      { "name": "జింక", "filename": "deer.jpg" },
+      { "name": "జీబ్రా", "filename": "zebra.jpg" },
+      { "name": "ఎలుగుబంటి", "filename": "bear.jpg" },
+      { "name": "గ్రద్ద", "filename": "eagle.jpg" },
+      { "name": "చేప", "filename": "fish.jpg" }
+    ],
+    "కీటకాలు": [
+      { "name": "దోమ", "filename": "mosquito.jpg" },
+      { "name": "ఈగ", "filename": "fly.jpg" },
+      { "name": "సీతాకోకచిలుక", "filename": "butterfly.jpg" },
+      { "name": "స్పైడర్", "filename": "spider.jpg" }
+    ]
+  }
+}
