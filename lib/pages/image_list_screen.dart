@@ -5,7 +5,7 @@ import 'package:hearlearn/providers/listening_provider.dart';
 import 'package:provider/provider.dart';
 
 class ImageListScreen extends StatefulWidget {
-  const ImageListScreen({Key? key}) : super(key: key);
+  const ImageListScreen({super.key});
 
   @override
   _ImageListScreenState createState() => _ImageListScreenState();

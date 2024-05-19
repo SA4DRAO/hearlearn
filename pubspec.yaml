@@ -1,5 +1,5 @@
 name: hearlearn
-description: "Flashcard app for learning languages by listening to the pronunciation of the words."
+description: "Flashcard app for learning languages by listening to the pronunciation of the words. Dedicated to my late mother Uma Rao"
 publish_to: "none"
 version: 1.0.0
 
@@ -28,7 +28,14 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
-    - assets/img/
+    - assets/img/colors/
+    - assets/img/domestic animals/
+    - assets/img/flowers/
+    - assets/img/fruits/
+    - assets/img/insects/
+    - assets/img/vegetables/
+    - assets/img/vehicles/
+    - assets/img/wild animals/
   uses-material-design: true
 
 flutter_launcher_icons:

@@ -1,5 +1,5 @@
 import 'dart:convert' show json;
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class CardsListProvider extends ChangeNotifier {
@@ -37,7 +37,14 @@ class CardsListProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       // Handle errors, such as file not found or JSON parsing errors
-      print('Error loading data: $e');
+      if (kDebugMode) {
+        print('Error loading data: $e');
+      }
+      // You can display a snack bar with a user-friendly error message
+      // or use another method to notify the user about the error.
+      // For simplicity, let's just notify the listeners with an empty itemList.
+      itemList.clear();
+      notifyListeners();
     }
   }
 
