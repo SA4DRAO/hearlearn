@@ -25,7 +25,6 @@
       {"name": "cycle", "filename": "vehicles/cycle.jpg"},
       {"name": "ship", "filename": "vehicles/ship.jpg"},
       {"name": "plane", "filename": "vehicles/plane.jpg"},
-      {"name": "auto", "filename": "vehicles/auto.jpg"},
       {"name": "train", "filename": "vehicles/train.jpg"}
     ],
     "flowers": [
@@ -80,6 +79,19 @@
       {"name": "fly", "filename": "insects/fly.jpg"},
       {"name": "butterfly", "filename": "insects/butterfly.jpg"},
       {"name": "spider", "filename": "insects/spider.jpg"}
+    ],
+    "appliances": [
+      {"name": "fan", "filename": "appliances/fan.jpg"},
+      {"name": "light bulb", "filename": "appliances/light_bulb.jpg"},
+      {"name": "switch", "filename": "appliances/switch.jpg"},
+      {"name": "tv", "filename": "appliances/tv.jpg"}
+    ],
+    "parts of body": [
+      {"name": "ears", "filename": "parts of body/ears.jpg"},
+      {"name": "hand", "filename": "parts of body/hand.jpg"},
+      {"name": "leg", "filename": "parts of body/leg.jpg"},
+      {"name": "mouth", "filename": "parts of body/mouth.jpg"},
+      {"name": "nose", "filename": "parts of body/nose.jpg"}
     ]
   }
 }

@@ -63,7 +63,7 @@
       {"name": "బల్లి", "filename": "domestic animals/lizard.jpg"}
     ],
     "క్రూర మృగాలు": [
-      {"name": "tiger", "filename": "wild animals/tiger.jpg"},
+      {"name": "పులి", "filename": "wild animals/tiger.jpg"},
       {"name": "సింహం", "filename": "wild animals/lion.jpg"},
       {"name": "కోతి", "filename": "wild animals/monkey.jpg"},
       {"name": "ఏనుగు", "filename": "wild animals/elephant.jpg"},
@@ -79,6 +79,19 @@
       {"name": "ఈగ", "filename": "insects/fly.jpg"},
       {"name": "సీతాకోకచిలుక", "filename": "insects/butterfly.jpg"},
       {"name": "స్పైడర్", "filename": "insects/spider.jpg"}
+    ],
+    "ఉపకరణాలు": [
+      {"name": "అభిమాని", "filename": "appliances/fan.jpg"},
+      {"name": "వెలుగుదివ్వె", "filename": "appliances/light_bulb.jpg"},
+      {"name": "మారండి", "filename": "appliances/switch.jpg"},
+      {"name": "టీవీ", "filename": "appliances/tv.jpg"}
+    ],
+    "శరీర భాగాలు": [
+      {"name": "చెవులు", "filename": "parts of body/ears.jpg"},
+      {"name": "చెయ్యి", "filename": "parts of body/hand.jpg"},
+      {"name": "కాలు", "filename": "parts of body/leg.jpg"},
+      {"name": "నోరు", "filename": "parts of body/mouth.jpg"},
+      {"name": "ముక్కు", "filename": "parts of body/nose.jpg"}
     ]
   }
 }

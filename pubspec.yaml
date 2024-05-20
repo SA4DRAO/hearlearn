@@ -28,11 +28,13 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/img/appliances/
     - assets/img/colors/
     - assets/img/domestic animals/
     - assets/img/flowers/
     - assets/img/fruits/
     - assets/img/insects/
+    - assets/img/parts of body/
     - assets/img/vegetables/
     - assets/img/vehicles/
     - assets/img/wild animals/
